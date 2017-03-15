@@ -15,8 +15,9 @@ module Neato
       cmd.execute
     end
 
-    install 'neat', '2.0.0'
+    def self.install_all
+      Deps::SASS_LIBS.each { |lib| install(*lib) }
+    end
 
   end
 end
-
