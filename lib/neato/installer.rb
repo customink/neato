@@ -1,35 +1,22 @@
-require 'bundler/inline'
+require 'rubygems'
+require 'rubygems/command'
+require 'rubygems/commands/install_command'
 
 module Neato
   module Installer
 
-    ADDITIONAL_SPECS = [
-      ['neat', '2.0.0']
-    ]
-
-    def self.gemfile_specs
-      File.read(Bundler.default_gemfile)
+    def self.install(name, version)
+      cmd = Gem::Commands::InstallCommand.new
+      cmd.options[:ignore_dependencies] = true
+      cmd.options[:args] = [name]
+      cmd.options[:version] = version
+      cmd.ui = Gem::SilentUI.new
+      cmd.ui.define_singleton_method(:terminate_interaction) { |*_| nil }
+      cmd.execute
     end
 
-    def self.additional_specs
-      ADDITIONAL_SPECS.map do |spec|
-        name, version = spec
-        "gem #{name.inspect}, #{version.inspect}"
-      end.join("\n")
-    end
-
-    def self.additional_specs_file
-      "source 'https://rubygems.org'\n#{additional_specs}"
-    end
-
-    def self.all_specs
-      gemfile_specs + additional_specs
-    end
-
-    begin
-      gemfile(true, ui: Bundler::UI::Silent.new) { eval(additional_specs_file) }
-    rescue
-    end
+    install 'neat', '2.0.0'
 
   end
 end
+
