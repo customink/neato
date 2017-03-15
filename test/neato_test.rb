@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NeatoTest < Minitest::Spec
+class NeatoTest < Neato::Spec
 
   it 'foo' do
     assert true
