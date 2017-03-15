@@ -1,4 +1,5 @@
 require 'neato/version'
+require 'neato/sass'
 require 'neato/deps'
 require 'neato/installer'
 require 'neato/paths'
