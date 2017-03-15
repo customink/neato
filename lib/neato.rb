@@ -1,5 +1,5 @@
-require "neato/version"
+require 'neato/version'
+require 'neato/installer'
 
 module Neato
-  # Your code goes here...
 end
