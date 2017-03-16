@@ -14,7 +14,7 @@ module Neato
 
     Deps::SASS_LIBS.each do |lib|
       spec = gem_spec(*lib)
-      meth = spec.full_name.gsub /\.|-/, ''
+      meth = spec.full_name.gsub(/\.|-/, '')
       define_singleton_method(meth) { gem_path(*lib) }
     end
 
