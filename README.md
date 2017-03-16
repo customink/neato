@@ -1,41 +1,49 @@
+
 # Neato
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/neato`. To experiment with that code, run `bin/console` for an interactive prompt.
+**WARNING: This is proof of concept code!**
 
-TODO: Delete this and the text above, and describe your gem
 
-## Installation
+### What For?
 
-Add this line to your application's Gemfile:
+Can a Ruby application bundle and/or use two versions of a Sass library?
 
-```ruby
-gem 'neato'
+Based on this [Neat GitHub Issue](https://github.com/thoughtbot/neat/issues/558) the proposal was to allow a special import to target a library and version. Like this:
+
+```scss
+@import 'neat@2.0';
+.test { @include grid-container; }
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install neato
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/Ken Collins/neato.
+Based on this import, the application would render using Neat v2.0.0 vs the bundled 1.8.0.
 
 
-## License
+### High Level
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+* Bundling multiple gems of the same name in a single app is not a thing.
+* Leverage the [SassPaths](https://github.com/customink/sass_paths) gem to setup `Sass.load_paths`.
+* Then use `SassPaths.with_replacements` in v2.0 to swap load paths before rendering a Sass template.
+* Implemented a primitive template scanner for Sass dependency detection/replacements.
+* Created a simple `neat@2.0.scss` to delegate to whatever `neat` is in `Sass.load_paths`.
+
+Please see the [neato_test.rb](test/neato_test.rb) file for the tests and browse the lib directory for details.
+
+
+### Additional Gem Installation
+
+There are so many ways a Ruby application could install additional dependences. For example, [bundler/inline](http://technology.customink.com/blog/2015/07/17/bundler-inline-gemfile-dependencies/) is a good choice in some cases. Others might be to use [Yarn](https://yarnpkg.com) alongside your application - and there may be others.
+
+```ruby
+require 'bundler/inline'
+gemfile true, ui: Bundler::UI::Silent.new do
+  gem 'neat', '2.0.0'
+end
+```
+
+Using Bundler's inline would require a script as it posses issues inside a running application. I think Yarn might be a good choice alongside a Ruby or Rails application.
+
+
+### Not Done
+
+The `Neato::Sass` would use [SassC](https://github.com/sass/sassc) if installed. However I have not yet setup an Appraisal yet to test it. Should be fine though, I use SassC all the time this way.
 

@@ -15,4 +15,13 @@ class NeatoTest < Neato::Spec
     CSS
   end
 
+  it 'can use neat v2' do
+    assert_sass <<-SASS, <<-CSS
+      @import 'neat@2.0';
+      .test { @include grid-container; }
+    SASS
+      .test::after { clear: both; content: ""; display: block; }
+    CSS
+  end
+
 end

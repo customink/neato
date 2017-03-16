@@ -11,8 +11,7 @@ module Neato
   end
 
   Installer.install_all
+  SassPaths.append Neato.root.join('app/assets/stylesheets')
+  SassPaths.append_gem_path 'neat', Deps.bundled_sass_paths('neat')
+  SassPaths.append_gem_path 'bourbon', Deps.bundled_sass_paths('bourbon')
 end
-
-SassPaths.append Neato.root.join('app/assets/stylesheets')
-SassPaths.append_gem_path 'neat', 'app/assets/stylesheets'
-SassPaths.append_gem_path 'bourbon', 'app/assets/stylesheets'

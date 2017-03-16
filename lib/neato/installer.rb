@@ -16,7 +16,10 @@ module Neato
     end
 
     def self.install_all
-      Deps::SASS_LIBS.each { |lib| install(*lib) }
+      Deps::SASS_LIBS.each do |lib|
+        name, version, _path = lib
+        install(name, version)
+      end
     end
 
   end

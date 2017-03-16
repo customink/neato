@@ -10,7 +10,7 @@ module TestHelpers
     private
 
     def assert_sass(sass_template, expected_css)
-      actual_css = Neato::Sass.render(sass_template)
+      actual_css = Neato::Sass.smart_render(sass_template)
       assert_equal squish_css(expected_css), squish_css(actual_css)
     end
 

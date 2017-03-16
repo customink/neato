@@ -11,6 +11,13 @@ module Neato
       engine.new(template, options).render
     end
 
+    def self.smart_render(template)
+      reps = Deps.replacements(template)
+      SassPaths.with_replacements(reps) do
+        render(template)
+      end
+    end
+
     def self.engine
       c? ? ::SassC::Engine : ::Sass::Engine
     end
