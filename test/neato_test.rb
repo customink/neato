@@ -2,7 +2,7 @@ require 'test_helper'
 
 class NeatoTest < Neato::Spec
 
-  it 'can import neat v1 by default' do
+  it 'can use neat v1 by default' do
     assert_sass <<-SASS, <<-CSS
       @import 'neat';
       $mobile: new-breakpoint(max-width 480px 4);
