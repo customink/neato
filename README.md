@@ -1,7 +1,8 @@
 
 # Neato
 
-**WARNING: This is proof of concept code!** For example: Everything is an evil module function. Not well designed.
+**WARNING: This is proof of concept code!** 
+For example: Everything is an evil module function. Not well designed.
 
 
 ### What For?
